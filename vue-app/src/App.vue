@@ -1,11 +1,11 @@
 <script setup>
-  const options = {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    timezone: 'UTC'
+const options = {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  timezone: 'UTC'
 };
-  const now = new Date().toLocaleString("ru", options); 
+const now = new Date().toLocaleString("ru", options); 
 </script>
 
 <template>
@@ -19,9 +19,11 @@
   display: flex;
   justify-content: center;
 }
+
 .date {
-  border: 1px solid green;
+  border: 1px solid rgb(106, 175, 106);
   padding: 5px 15px;
-  width: max-content;;
+  width: max-content;
+  ;
 }
 </style>
