@@ -3,7 +3,11 @@
   --color-bg: #F0F4F8;
   --color-button: #008BFE;
   --color-button-hover: #006FCB;
+  --color-text: #222222;
+  --color-score: #CCE8FF;
   --font: "Roboto", sans-serif;
+  --blur-and-shadow-card: 0px 0px 16px 0px #0000001A;
+
 }
 
 body {
@@ -14,8 +18,4 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-bg);
-
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
 }
