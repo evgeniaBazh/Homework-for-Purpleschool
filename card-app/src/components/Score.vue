@@ -1,13 +1,13 @@
 <script setup>
 import Like from './../assets/Like.vue'
-const {likes} = defineProps({
-    likes: Number,
+const {scores} = defineProps({
+    scores: Number,
 })
 </script>
 
 <template>
     <div class="score">
-        <span class="count">{{ likes }}</span>
+        <span class="count">{{ scores }}</span>
         <Like/>
     </div>
 </template>

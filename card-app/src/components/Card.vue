@@ -1,6 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 const emit = defineEmits(['flip', 'cardStatus'])
+const card = ref({
+    word: String,
+    translation: String,
+    state: String,
+    status: String,
+})
 const flipValue = ref(false)
 const status = ref(false)
 

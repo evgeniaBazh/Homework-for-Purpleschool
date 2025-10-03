@@ -1,7 +1,7 @@
 <script setup>
 import Score from './Score.vue'
 const data = {
-    likes: 100,
+    scores: 100,
 }
 </script>
 
