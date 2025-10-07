@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 const emit = defineEmits(['flip', 'cardStatus'])
 const card = ref({
-    word: String,
-    translation: String,
-    state: String,
-    status: String,
+    word: 'hello',
+    translation: 'привет',
+    state: 'closed',
+    status: 'pending',
 })
 const flipValue = ref(false)
 const status = ref(false)
@@ -25,7 +25,7 @@ const cardStatus = () => {
     <div @click="handleFlipCard()" class="card">
         <div class="edgingCard">
             <span class="numberCard">01</span>
-            <p>unadmitted</p>
+            <p>{{ card.word }}</p>
             <span class="eventText">Перевернуть</span>
         </div>
     </div>
