@@ -1,18 +1,31 @@
 <script setup>
 import Button from './components/Button.vue';
 import Header from './components/Header.vue'
-import Card from './components/Card.vue'
+import Cards from './components/Cards.vue'
+import { ref } from 'vue';
+
+const API_ENDPOINT = 'http://localhost:8080/api/random-words'
+const data = ref([])
+async function getWord() {
+    const res = await fetch(`${API_ENDPOINT}`);
+    if (res.status != 200) {
+        error.value = await res.json();
+        data.value = null;
+        return;
+    }
+    data.value = await res.json();
+}
 </script>
 
 <template>
   <main class="main">
     <Header/>
     <div class="wrapBtn">
-      <Button>
+      <Button @click="getWord">
         Начать игру
       </Button>
     </div>
-    <Card @flip="($event) => console.log($event)"/>
+    <Cards :data="data"/>
   </main>
 </template>
 

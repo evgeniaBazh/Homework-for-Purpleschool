@@ -1,77 +1,74 @@
 <script setup>
-import { ref } from 'vue'
-import Cross from '../assets/Cross.vue'
-import CrossMini from '../assets/CrossMini.vue'
-import CheckMark from '../assets/CheckMark.vue'
-import CheckMarkMini from '../assets/CheckMarkMini.vue'
-const emit = defineEmits(['flip', 'cardStatus'])
-const cards = ref([{
-    word: 'dust-coat',
-    translation: 'пятно на пальто',
-    state: 'closed',
-    status: 'pending',
-    },
-    {
-    word: 'camel caravan',
-    translation: 'караван верблюдов',
-    state: 'open',
-    status: 'pending',
-    },
-    {word: 'auto',
-    translation: 'автомобиль',
-    state: 'open',
-    status: 'succes',
-    },
-    {word: 'lead',
-    translation: 'свинец',
-    state: 'open',
-    status: 'failed',
-    },
+import { onMounted, ref } from "vue";
+import Cross from "../assets/Cross.vue";
+import CrossMini from "../assets/CrossMini.vue";
+import CheckMark from "../assets/CheckMark.vue";
+import CheckMarkMini from "../assets/CheckMarkMini.vue";
 
-])
-const flipValue = ref(false)
-const status = ref(false)
+const state = ref("closed");
+const status = ref("pending");
+
+const props = defineProps([
+  "initialState",
+  "initialStatus",
+  "word",
+  "translation",
+]);
+
+onMounted(() => {
+  state.value = props.initialState;
+  status.value = props.initialStatus;
+});
 
 const handleFlipCard = () => {
-    flipValue.value = !flipValue.value
-    emit('flip', flipValue.value)
+    state.value = 'closed' ? 'opened' : 'closed'
+    emit('flip', state.value)
 }
 
-const cardStatus = () => {
-    status.value = !status.value
-    emit('cardStatus')
-}
+// const cardStatus = () => {
+//     status.value = !status.value
+//     emit('cardStatus')
+// }
 </script>
 
 <template>
-    <div class="wrap">
-        <div v-for="card in cards" @click="handleFlipCard()" class="card">
-            <div class="edgingCard">
-                <span class="numberCard">01</span>
-                <button v-if="card.state === 'open' && card.status === 'succes'" class="btn topText"><CheckMark/></button>
-                <button v-if="card.state === 'open' && card.status === 'failed'" class="btn topText"><Cross/></button>
-                <p v-if="card.state === 'closed'">{{ card.word }}</p>
-                <p v-if="card.state === 'open'">{{ card.translation }}</p>
-                <span v-if="card.state === 'closed'" class="eventText">Перевернуть</span>
-                <span v-if="card.state === 'open' && card.status === 'succes'" class="eventText">Завершено</span>
-                <span v-if="card.state === 'open' && card.status === 'failed'" class="eventText">Завершено</span>
-                <div v-if="card.state === 'open' && card.status === 'pending'" class="btns eventText" style="bottom: -16px;"
-                >
-                    <button class="btn"><CrossMini/></button>
-                    <button class="btn"><CheckMarkMini/></button>
-                </div>
-            </div>
-        </div>
+  <div class="card" @click="handleFlipCard()">
+    <div class="edging-card">
+      <span class="number-card">01</span>
+      <button
+        v-if="state === 'open' && status === 'succes'"
+        class="btn top-text"
+      >
+        <CheckMark />
+      </button>
+      <button
+        v-if="state === 'open' && status === 'failed'"
+        class="btn top-text"
+      >
+        <Cross />
+      </button>
+      <p v-if="state === 'closed'">{{ word }}</p>
+      <p v-if="state === 'open'">{{ translation }}</p>
+      <span v-if="state === 'closed'" class="eventText">Перевернуть</span>
+      <span v-if="state === 'open' && status === 'succes'" class="eventText"
+        >Завершено</span
+      >
+      <span v-if="state === 'open' && status === 'failed'" class="eventText"
+        >Завершено</span
+      >
+      <div
+        v-if="state === 'open' && status === 'pending'"
+        class="btns eventText"
+        style="bottom: -16px"
+      >
+        <button class="btn"><CrossMini /></button>
+        <button class="btn"><CheckMarkMini /></button>
+      </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
-.wrap {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 20px;
-}
 .card {
     width: 250px;
     height: 376px;
@@ -84,7 +81,7 @@ const cardStatus = () => {
     background-color: var(--color-primary);
 }
 
-.edgingCard {
+.edging-card {
     width: 212px;
     height: 320px;
     border: 1px solid var(--color-score);
@@ -95,7 +92,7 @@ const cardStatus = () => {
     position: relative;
 }
 
-.numberCard {
+.number-card {
     position: absolute;
     top: -8px;
     left: 16px;
@@ -114,7 +111,7 @@ const cardStatus = () => {
     padding: 0 4px;
 }
 
-.topText {
+.top-text {
     position: absolute;
     top: -18px;
     text-transform: uppercase;
