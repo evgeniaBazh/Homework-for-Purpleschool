@@ -5,9 +5,6 @@ import CrossMini from "../assets/CrossMini.vue";
 import CheckMark from "../assets/CheckMark.vue";
 import CheckMarkMini from "../assets/CheckMarkMini.vue";
 
-const state = ref("closed");
-const status = ref("pending");
-
 const props = defineProps([
   "initialState",
   "initialStatus",
@@ -15,20 +12,21 @@ const props = defineProps([
   "translation",
 ]);
 
+const state = ref(props.initialState)
+const status = ref(props.initialStatus)
+
+const emit = defineEmits(['flip', 'cardStatus'])
+
 onMounted(() => {
   state.value = props.initialState;
   status.value = props.initialStatus;
 });
 
 const handleFlipCard = () => {
-    state.value = 'closed' ? 'opened' : 'closed'
+    state.value = state.value === 'closed' ? 'opened' : 'closed'
     emit('flip', state.value)
 }
 
-// const cardStatus = () => {
-//     status.value = !status.value
-//     emit('cardStatus')
-// }
 </script>
 
 <template>
@@ -61,8 +59,8 @@ const handleFlipCard = () => {
         class="btns eventText"
         style="bottom: -16px"
       >
-        <button class="btn"><CrossMini /></button>
-        <button class="btn"><CheckMarkMini /></button>
+        <button class="btn"><CrossMini @click="emit('cardStatus', 'succes')"/></button>
+        <button class="btn"><CheckMarkMini @click="emit('cardStatus', 'failed')"/></button>
       </div>
     </div>
   </div>

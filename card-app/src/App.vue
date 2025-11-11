@@ -2,7 +2,7 @@
 import Button from './components/Button.vue';
 import Header from './components/Header.vue'
 import Cards from './components/Cards.vue'
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const API_ENDPOINT = 'http://localhost:8080/api/random-words'
 const data = ref([])
@@ -15,13 +15,17 @@ async function getWord() {
     }
     data.value = await res.json();
 }
+
+onMounted(() => {
+  getWord()
+})
 </script>
 
 <template>
   <main class="main">
     <Header/>
     <div class="wrapBtn">
-      <Button @click="getWord">
+      <Button>
         Начать игру
       </Button>
     </div>
