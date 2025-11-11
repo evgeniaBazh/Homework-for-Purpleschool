@@ -1,17 +1,17 @@
 <script setup>
 import { computed, ref } from 'vue'
 import Card from './Card.vue'
+const emit = defineEmits(['flip', 'cardStatus'])
 const props = defineProps(['data'])
-const initialState = ref("closed");
-const initialStatus = ref("pending");
+
 
 const cards = computed(() => {
     const words = props.data.map((item) => {
         return { 
             word: item.word,
             translation: item.translation,
-            initialState,
-            initialStatus,
+            state: 'closed',
+            status: 'pending',
         }
     })
     return words
@@ -23,7 +23,7 @@ const cards = computed(() => {
 
 <template>
     <div class="wrap">
-        <Card v-for="card in cards"  :initial-state="card.initialState" :initial-status="card.initialStatus" :translation="card.translation" :word="card.word"/>
+        <Card v-for="card in cards" :initial-state="card.state" :initial-status="card.status" :translation="card.translation" :word="card.word"/>
     </div>
 </template>
 
