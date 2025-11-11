@@ -2,7 +2,7 @@
 import Button from "./components/Button.vue";
 import Header from "./components/Header.vue";
 import Cards from "./components/Cards.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 
 const API_ENDPOINT = "http://localhost:8080/api/random-words";
 const data = ref([]);
@@ -24,9 +24,22 @@ async function getWord() {
   }
 }
 
+
 onMounted(() => {
   getWord();
 });
+
+const cards = computed(() => {
+    const words = data.value.map((item) => {
+        return { 
+            word: item.word,
+            translation: item.translation,
+            state: 'closed',
+            status: 'pending',
+        }
+    })
+    return words
+})
 </script>
 
 <template>
@@ -35,7 +48,7 @@ onMounted(() => {
     <div class="wrapBtn">
       <Button> Начать игру </Button>
     </div>
-    <Cards :data="data" />
+    <Cards :data="data" :cards="cards" />
   </main>
 </template>
 

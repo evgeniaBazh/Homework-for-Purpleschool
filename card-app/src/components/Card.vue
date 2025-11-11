@@ -59,8 +59,8 @@ const handleFlipCard = () => {
         class="btns eventText"
         style="bottom: -16px"
       >
-        <button class="btn"><CrossMini @click="emit('cardStatus', 'succes')"/></button>
-        <button class="btn"><CheckMarkMini @click="emit('cardStatus', 'failed')"/></button>
+        <button class="btn"><CrossMini @click="emit('cardStatus', 'failed')"/></button>
+        <button class="btn"><CheckMarkMini @click="emit('cardStatus', 'succes')"/></button>
       </div>
     </div>
   </div>
