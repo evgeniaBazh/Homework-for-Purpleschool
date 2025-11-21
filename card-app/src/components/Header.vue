@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { inject } from 'vue';
 import Score from './Score.vue'
-const scores = ref(100)
+const scores = inject('scores')
+console.log(scores);
 </script>
 
 <template>
