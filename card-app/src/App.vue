@@ -40,15 +40,23 @@ const cards = computed(() => {
     })
     return words
 })
+
+const activeCards = ref(false)
+const activeBtn = ref(true)
+
+const handleClickBtn = () => {
+  activeCards.value = !activeCards.value
+  activeBtn.value = !activeBtn.value
+}
 </script>
 
 <template>
   <main class="main">
     <Header />
-    <div class="wrapBtn">
-      <Button> Начать игру </Button>
+    <div class="wrapBtn" v-if="activeBtn">
+      <Button @click="handleClickBtn"> Начать игру </Button>
     </div>
-    <Cards :data="data" :cards="cards" />
+    <Cards v-if="activeCards" :data="data" :cards="cards" @repeat="getWord"/>
   </main>
 </template>
 

@@ -3,6 +3,8 @@ import Like from './../assets/Like.vue'
 const {scores} = defineProps({
     scores: Number,
 })
+
+
 </script>
 
 <template>
